@@ -1,5 +1,5 @@
 from brownie import (accounts, Wei, DamnValuableToken,
-                     UnstoppableLender, ReceiverUnstoppable, ReceiverAttacker)
+                     UnstoppableLender, ReceiverUnstoppable)
 import pytest
 
 TOKENS_IN_POOL = Wei('1000000 ether')
