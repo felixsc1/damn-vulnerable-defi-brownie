@@ -8,9 +8,10 @@ See <https://www.damnvulnerabledefi.xyz/> for the descriptions of the challenges
 
 ## Notes
 
-- Challenges I've added and solved so far (more to follow):
-    - Unstoppable
-    - Naive Receiver
+- Challenges added and solved so far (more to follow):
+    - #1 Unstoppable
+    - #2 Naive Receiver
+    - #3 Truster
 
 
 - Make sure you have openzeppelin-contracts (4.4.2) imported via the brownie package manager.
