@@ -11,8 +11,9 @@ See <https://www.damnvulnerabledefi.xyz/> for the descriptions of the challenges
 - Challenges added and solved so far (more to follow):
     - #1 Unstoppable
     - #2 Naive Receiver
-    - #3 Truster
-    - #4 Side Entrance
+    - #3 Truster (shows how to call another function via the 'data' argument)
+    - #4 Side Entrance (example of a reentrancy attack)
+    - #5 The Rewarder
 
 
 - Make sure you have openzeppelin-contracts (4.4.2) imported via the brownie package manager.

@@ -20,7 +20,7 @@ def test_naive_receiver():
     # ** CODE YOUR EXPLOIT HERE **
 
     # SOLUTION
-    # would have to repeat this transaction 10 times. not sure how to get the single-transaction bonus points...
+    # would have to repeat this transaction 10 times. For bonus solution create attacker contract that performs the action 10x
     pool.flashLoan(receiver.address, Wei('10 ether'), {"from": attacker})
 
     assert receiver.balance() == Wei('9 ether')
