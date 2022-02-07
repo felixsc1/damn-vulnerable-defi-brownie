@@ -15,6 +15,7 @@ See <https://www.damnvulnerabledefi.xyz/> for the descriptions of the challenges
     - #4 Side Entrance (example of a reentrancy attack)
     - #5 The Rewarder (snapshots, timestamps)
     - #6 Selfie (governance contract)
+    - #7 Compromised (oracles, private keys)
 
 
 - Make sure you have openzeppelin-contracts (4.4.2) imported via the brownie package manager.

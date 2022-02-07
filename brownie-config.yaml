@@ -2,4 +2,4 @@ networks:
   default: development
   development:
     cmd_settings:
-      default_balance: 2000
+      default_balance: 10000
