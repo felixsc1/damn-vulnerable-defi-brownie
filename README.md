@@ -17,5 +17,9 @@ See <https://www.damnvulnerabledefi.xyz/> for the descriptions of the challenges
     - #6 Selfie (governance contract)
     - #7 Compromised (oracles, private keys)
 
+- Need help with those challenges:
+  - #8 Puppet: Couldn't figure out how to create a new contract with only the ABI in brownie. And UniswapV1 used an old vyper version with deprecated functions, so the contract files don't work either.
+
+
 
 - Make sure you have openzeppelin-contracts (4.4.2) imported via the brownie package manager.

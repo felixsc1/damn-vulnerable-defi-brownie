@@ -29,7 +29,7 @@ def test_compromised():
     attacker.transfer(accounts[9], initial_balance - Wei("0.1 ether"))
     assert attacker.balance() == Wei("0.1 ether")
 
-    # deploy exchange, and get associated token contract
+    # deploy exchange and get associated token contract
     exchange = Exchange.deploy(
         oracle.address, {"from": deployer, "value": EXCHANGE_INITIAL_ETH_BALANCE})
     token = DamnValuableNFT.at(exchange.token())
@@ -74,7 +74,7 @@ def test_compromised():
     oracle.postPrice("DVNFT", INITIAL_NFT_PRICE, {"from": trust2})
 
     # ** SUCCESS CONDITIONS **
-    # attacker must have received all the exchanges funds
+    # attacker must have received all the exchange funds
     assert attacker.balance() == EXCHANGE_INITIAL_ETH_BALANCE + Wei("0.1 ether")
     # attacker shouldn't have any NFT anymore
     assert token.balanceOf(attacker) == 0
